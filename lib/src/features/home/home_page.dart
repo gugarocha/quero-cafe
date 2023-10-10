@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../core/ui/constants.dart';
 import '../../core/ui/helpers/size_extensions.dart';
@@ -63,7 +64,9 @@ class HomePage extends StatelessWidget {
                   height: 30,
                 ),
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Modular.to.navigate('/login');
+                  },
                   child: const FittedBox(
                     child: Text(
                       'Entrar/Cadastrar',
