@@ -12,6 +12,7 @@ class AppWidget extends StatelessWidget {
 
     return MaterialApp.router(
       title: 'Quero Café',
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.themeData,
       routerConfig: Modular.routerConfig,
     );

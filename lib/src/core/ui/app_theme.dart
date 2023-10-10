@@ -15,7 +15,7 @@ sealed class AppTheme {
         backgroundColor: ColorsConstants.secondary,
         minimumSize: const Size.fromHeight(70),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(20),
         ),
         textStyle: FontsConstants.textMedium.copyWith(
           fontSize: 32,
@@ -27,7 +27,7 @@ sealed class AppTheme {
         foregroundColor: ColorsConstants.secondary,
         minimumSize: const Size.fromHeight(70),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(20),
         ),
         side: const BorderSide(
           width: 2,

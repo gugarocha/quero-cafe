@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../core/ui/constants.dart';
 import '../../core/ui/helpers/size_extensions.dart';
+import '../../core/ui/widgets/auth_form_container.dart';
+import '../../core/ui/widgets/password_form_field.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -30,9 +33,6 @@ class _LoginPageState extends State<LoginPage> {
     final screenWidth = context.screenWidth;
     final screenHeight = context.screenHeight;
 
-    final percentWidth = context.percentWidth;
-    final percentHeight = context.percentHeight;
-
     return Scaffold(
       body: Stack(
         children: [
@@ -46,99 +46,58 @@ class _LoginPageState extends State<LoginPage> {
           ),
           Form(
             key: formKey,
-            child: Align(
-              alignment: Alignment.center,
-              child: Container(
-                constraints: BoxConstraints(
-                  maxWidth: percentWidth(screenWidth < 1200 ? 0.7 : 0.4),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: SingleChildScrollView(
-                  child: Column(
+            child: AuthFormContainer(
+              child: Column(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        height: percentHeight(0.25),
-                        decoration: const BoxDecoration(
-                          color: ColorsConstants.primary,
-                          image: DecorationImage(
-                            image: AssetImage(ImagesConstants.logo),
-                          ),
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(30),
-                          ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Login',
+                        style: FontsConstants.textRegular.copyWith(
+                          fontSize: 40,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(35),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              'Login',
-                              style: FontsConstants.textRegular
-                                  .copyWith(fontSize: 40),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextFormField(
-                              controller: emailEC,
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: const InputDecoration(
-                                labelText: 'e-mail',
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              obscureText: hidePassword,
-                              decoration: InputDecoration(
-                                labelText: 'senha',
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      hidePassword = !hidePassword;
-                                    });
-                                  },
-                                  icon: FaIcon(
-                                    hidePassword
-                                        ? FontAwesomeIcons.eye
-                                        : FontAwesomeIcons.eyeSlash,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            ElevatedButton(
-                              onPressed: () {},
-                              child: const Text('Entrar'),
-                            ),
-                            const SizedBox(
-                              height: 50,
-                            ),
-                            Center(
-                              child: FittedBox(
-                                child: TextButton(
-                                  onPressed: () {},
-                                  child: const Text('Não possui cadastro?'),
-                                ),
-                              ),
-                            ),
-                          ],
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        controller: emailEC,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: const InputDecoration(
+                          labelText: 'e-mail',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      PasswordFormField(controller: passwordEC),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: const Text('Entrar'),
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Center(
+                        child: FittedBox(
+                          child: TextButton(
+                            onPressed: () {
+                              Modular.to.navigate('/signup');
+                            },
+                            child: const Text('Não possui cadastro?'),
+                          ),
                         ),
                       ),
                     ],
                   ),
-                ),
+                ],
               ),
             ),
           ),
