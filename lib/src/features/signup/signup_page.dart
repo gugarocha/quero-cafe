@@ -37,9 +37,6 @@ class _SignupPageState extends State<SignupPage> {
     final screenWidth = context.screenWidth;
     final screenHeight = context.screenHeight;
 
-    final percentWidth = context.percentWidth;
-    final percentHeight = context.percentHeight;
-
     return Scaffold(
       body: Stack(
         children: [

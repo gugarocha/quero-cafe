@@ -35,5 +35,6 @@ sealed class FontsConstants {
   static const textTitle = TextStyle(
     fontFamily: titleFontFamily,
     fontWeight: FontWeight.w400,
+    fontSize: 42,
   );
 }

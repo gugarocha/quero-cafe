@@ -49,7 +49,9 @@ class HomePage extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Modular.to.navigate('/menu');
+                  },
                   child: const FittedBox(
                     child: Text(
                       'CARDÁPIO',
