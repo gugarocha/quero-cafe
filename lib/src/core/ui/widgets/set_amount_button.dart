@@ -7,27 +7,25 @@ class SetAmountButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.remove),
-            iconSize: 24,
+    return Row(
+      children: [
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.remove),
+          iconSize: 24,
+        ),
+        Text(
+          '1',
+          style: FontsConstants.textSemiBold.copyWith(
+            fontSize: 20,
           ),
-          Text(
-            '1',
-            style: FontsConstants.textSemiBold.copyWith(
-              fontSize: 20,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.add),
-            iconSize: 24,
-          ),
-        ],
-      ),
+        ),
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.add),
+          iconSize: 24,
+        ),
+      ],
     );
   }
 }

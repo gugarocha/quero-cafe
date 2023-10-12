@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../core/ui/constants.dart';
-import '../../core/ui/helpers/size_extensions.dart';
 import '../../core/ui/widgets/base_header.dart';
+import '../../core/ui/widgets/base_layout.dart';
 import 'widgets/product_item.dart';
 
 class MenuPage extends StatefulWidget {
@@ -29,14 +30,15 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = context.screenWidth;
-
-    return Scaffold(
-      body: Column(
+    return BaseLayout(
+      header: Column(
         children: [
-          const BaseHeader(
-            actionButtonLabel: 'Meu pedido',
-            iconData: Icons.shopping_cart_outlined,
+          BaseHeader(
+            pageName: 'Meu pedido',
+            pageIconData: Icons.shopping_cart_outlined,
+            onPagePressed: () {
+              Modular.to.navigate('/order');
+            },
           ),
           TabBar(
             controller: _tabController,
@@ -52,35 +54,24 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
               Tab(text: 'Sobremesas'),
             ],
           ),
+        ],
+      ),
+      body: Column(
+        children: [
+          const Text(
+            'Cardápio',
+            style: FontsConstants.textTitle,
+          ),
           Expanded(
-            child: Container(
-              width: screenWidth,
-              padding: const EdgeInsets.symmetric(
-                vertical: 10,
-                horizontal: 30,
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 400,
+                mainAxisSpacing: 20,
+                crossAxisSpacing: 20,
+                childAspectRatio: 3 / 4,
               ),
-              color: ColorsConstants.background,
-              child: Column(
-                children: [
-                  const Text(
-                    'Cardápio',
-                    style: FontsConstants.textTitle,
-                  ),
-                  Expanded(
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: 400,
-                        mainAxisSpacing: 20,
-                        crossAxisSpacing: 20,
-                        childAspectRatio: 3 / 4,
-                      ),
-                      itemCount: 5,
-                      itemBuilder: (context, index) => const ProductItem(),
-                    ),
-                  ),
-                ],
-              ),
+              itemCount: 5,
+              itemBuilder: (context, index) => const ProductItem(),
             ),
           ),
         ],

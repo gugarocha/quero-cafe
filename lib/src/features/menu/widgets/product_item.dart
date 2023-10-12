@@ -92,7 +92,9 @@ class ProductItem extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SetAmountButton(),
+                        const Flexible(
+                          child: SetAmountButton(),
+                        ),
                         Flexible(
                           child: ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(

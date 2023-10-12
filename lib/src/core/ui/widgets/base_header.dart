@@ -4,13 +4,15 @@ import '../constants.dart';
 import '../helpers/size_extensions.dart';
 
 class BaseHeader extends StatelessWidget {
-  final String actionButtonLabel;
-  final IconData iconData;
+  final String pageName;
+  final IconData pageIconData;
+  final VoidCallback onPagePressed;
 
   const BaseHeader({
     super.key,
-    required this.actionButtonLabel,
-    required this.iconData,
+    required this.pageName,
+    required this.pageIconData,
+    required this.onPagePressed,
   });
 
   @override
@@ -39,14 +41,14 @@ class BaseHeader extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton.icon(
-                  onPressed: () {},
+                  onPressed: onPagePressed,
                   icon: Icon(
-                    iconData,
+                    pageIconData,
                     color: ColorsConstants.secondary,
                     size: isWidthLess420 ? 14 : null,
                   ),
                   label: Text(
-                    actionButtonLabel,
+                    pageName,
                     style: FontsConstants.textRegular.copyWith(
                       color: ColorsConstants.secondary,
                       fontSize: isWidthLess420 ? 14 : null,
