@@ -117,7 +117,9 @@ class OrderPage extends StatelessWidget {
                                 minimumSize:
                                     Size.fromHeight(isWidthLess700 ? 50 : 70),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Modular.to.navigate('/payment');
+                              },
                               child: Text(
                                 'Prosseguir para o pagamento',
                                 textAlign: TextAlign.center,
