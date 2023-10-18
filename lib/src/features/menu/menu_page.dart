@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../core/ui/constants.dart';
-import '../../core/ui/widgets/base_header.dart';
-import '../../core/ui/widgets/base_layout.dart';
 import 'widgets/product_item.dart';
 
 class MenuPage extends StatefulWidget {
@@ -30,52 +27,39 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return BaseLayout(
-      header: Column(
-        children: [
-          BaseHeader(
-            pageName: 'Meu pedido',
-            pageIconData: Icons.shopping_cart_outlined,
-            onPagePressed: () {
-              Modular.to.navigate('/order');
-            },
-          ),
-          TabBar(
-            controller: _tabController,
-            isScrollable: true,
-            labelStyle: FontsConstants.textRegular,
-            labelColor: ColorsConstants.primary,
-            tabs: const [
-              Tab(text: 'Todos'),
-              Tab(text: 'Bebidas Quente'),
-              Tab(text: 'Bebidas Fria'),
-              Tab(text: 'Café da Manhã'),
-              Tab(text: 'Salgados'),
-              Tab(text: 'Sobremesas'),
-            ],
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          const Text(
-            'Cardápio',
-            style: FontsConstants.textTitle,
-          ),
-          Expanded(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 400,
-                mainAxisSpacing: 20,
-                crossAxisSpacing: 20,
-                childAspectRatio: 3 / 4,
-              ),
-              itemCount: 5,
-              itemBuilder: (context, index) => const ProductItem(),
+    return Column(
+      children: [
+        TabBar(
+          controller: _tabController,
+          isScrollable: true,
+          labelStyle: FontsConstants.textRegular,
+          labelColor: ColorsConstants.primary,
+          tabs: const [
+            Tab(text: 'Todos'),
+            Tab(text: 'Bebidas Quente'),
+            Tab(text: 'Bebidas Fria'),
+            Tab(text: 'Café da Manhã'),
+            Tab(text: 'Salgados'),
+            Tab(text: 'Sobremesas'),
+          ],
+        ),
+        const Text(
+          'Cardápio',
+          style: FontsConstants.textTitle,
+        ),
+        Expanded(
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 400,
+              mainAxisSpacing: 20,
+              crossAxisSpacing: 20,
+              childAspectRatio: 3 / 4,
             ),
+            itemCount: 5,
+            itemBuilder: (context, index) => const ProductItem(),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Modular.to.navigate('/menu');
+                    Modular.to.navigate('/shop/menu');
                   },
                   child: const FittedBox(
                     child: Text(

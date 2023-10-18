@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-import '../helpers/size_extensions.dart';
+import '../../core/ui/constants.dart';
+import '../../core/ui/helpers/size_extensions.dart';
+import 'base_header.dart';
 
 class BaseLayout extends StatelessWidget {
-  final Widget? header;
   final Widget body;
 
-  const BaseLayout({
-    super.key,
-    this.header,
-    required this.body,
-  });
+  const BaseLayout({super.key, required this.body});
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +15,11 @@ class BaseLayout extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          header ?? const SizedBox.shrink(),
+          const BaseHeader(),
           Expanded(
             child: Container(
               width: screenWidth,
-              padding: const EdgeInsets.symmetric(
-                vertical: 10,
-                horizontal: 30,
-              ),
+              padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
               color: ColorsConstants.background,
               child: body,
             ),
