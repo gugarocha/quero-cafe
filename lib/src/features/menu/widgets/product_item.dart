@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/ui/constants.dart';
+import '../../../core/ui/helpers/formatter_extensions.dart';
 import '../../../core/ui/widgets/set_amount_button.dart';
 import '../../../models/product_model.dart';
 
@@ -76,7 +77,7 @@ class ProductItem extends StatelessWidget {
                         vertical: maxWidthLess310 ? 2 : 5,
                       ),
                       child: Text(
-                        'R\$ ${product.price.toStringAsFixed(2)}',
+                        product.price.currencyPTBR,
                         style: FontsConstants.textSemiBold.copyWith(
                           fontSize: maxWidthLess310 ? 26 : 32,
                         ),
