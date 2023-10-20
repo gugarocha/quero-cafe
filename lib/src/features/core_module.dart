@@ -1,7 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../repositories/auth_repository.dart';
-import '../repositories/auth_repository_impl.dart';
+import '../repositories/auth/auth_repository.dart';
+import '../repositories/auth/auth_repository_impl.dart';
 import '../services/firebase_service.dart';
 import '../store/user_store.dart';
 

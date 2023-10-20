@@ -87,8 +87,8 @@ class BaseHeader extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 5,
+                SizedBox(
+                  width: isWidthLess420 ? 0 : 5,
                 ),
                 TextButton.icon(
                   onPressed: () async {

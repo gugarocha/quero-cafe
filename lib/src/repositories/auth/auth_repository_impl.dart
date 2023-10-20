@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../core/exceptions/repository_exception.dart';
-import '../models/user_model.dart';
-import '../services/firebase_service.dart';
+import '../../core/exceptions/repository_exception.dart';
+import '../../models/user_model.dart';
+import '../../services/firebase_service.dart';
 import 'auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {

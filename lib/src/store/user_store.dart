@@ -2,7 +2,8 @@ import 'package:mobx/mobx.dart';
 
 import '../core/exceptions/repository_exception.dart';
 import '../models/user_model.dart';
-import '../repositories/auth_repository.dart';
+import '../repositories/auth/auth_repository.dart';
+
 part 'user_store.g.dart';
 
 enum AuthStateStatus {
@@ -38,10 +39,7 @@ abstract class UserStoreBase with Store {
   Future<void> login(String email, String password) async {
     try {
       _status = AuthStateStatus.loading;
-
-      final user = await _authRepository.login(email, password);
-      _user = user;
-
+      _user = await _authRepository.login(email, password);
       _status = AuthStateStatus.success;
     } on RepositoryException catch (e) {
       _errorMessage = e.message;
@@ -67,10 +65,7 @@ abstract class UserStoreBase with Store {
 
     try {
       _status = AuthStateStatus.loading;
-
-      final user = await _authRepository.signup(userDto);
-      _user = user;
-
+      _user = await _authRepository.signup(userDto);
       _status = AuthStateStatus.success;
     } on RepositoryException catch (e) {
       _errorMessage = e.message;

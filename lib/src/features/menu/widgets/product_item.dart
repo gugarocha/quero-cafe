@@ -5,19 +5,11 @@ import '../../../core/ui/widgets/set_amount_button.dart';
 import '../../../models/product_model.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({super.key});
+  final ProductModel product;
+  const ProductItem(this.product, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    final ProductModel(:name, :description, :price, :imageUrl) = ProductModel(
-      name: 'Xicara de Café',
-      description:
-          'DescriçãoDescriçãoDescriçãoDescrição Descrição Descrição Descrição Descrição Descrição Descrição Descrição Descrição Descrição Descrição Descrição Descrição Descrição Descrição',
-      price: 10,
-      imageUrl:
-          'https://media.istockphoto.com/id/1358132613/pt/foto/refreshing-hot-cup-of-coffee-at-a-cafe.jpg?s=1024x1024&w=is&k=20&c=Hq5sGjDK30Q1WwFYuM5S-nV5vlGDGMNmACvqsmqGzBE=',
-    );
-
     return LayoutBuilder(
       builder: (context, constraints) {
         final maxWidthLess310 = constraints.maxWidth < 310;
@@ -29,9 +21,10 @@ class ProductItem extends StatelessWidget {
                 top: Radius.circular(10),
               ),
               child: Image.network(
-                imageUrl,
+                product.imageUrl,
                 width: 420,
-                fit: BoxFit.cover,
+                height: constraints.maxWidth * 0.66,
+                fit: BoxFit.fill,
               ),
             ),
             Expanded(
@@ -58,7 +51,7 @@ class ProductItem extends StatelessWidget {
                   children: [
                     FittedBox(
                       child: Text(
-                        name,
+                        product.name,
                         style: FontsConstants.textSemiBold.copyWith(
                           fontSize: maxWidthLess310 ? 20 : 24,
                         ),
@@ -70,7 +63,7 @@ class ProductItem extends StatelessWidget {
                     Expanded(
                       child: SingleChildScrollView(
                         child: Text(
-                          description,
+                          product.description,
                           style:
                               FontsConstants.textLight.copyWith(fontSize: 16),
                           overflow: TextOverflow.clip,
@@ -83,7 +76,7 @@ class ProductItem extends StatelessWidget {
                         vertical: maxWidthLess310 ? 2 : 5,
                       ),
                       child: Text(
-                        'R\$ ${price.toStringAsFixed(2)}',
+                        'R\$ ${product.price.toStringAsFixed(2)}',
                         style: FontsConstants.textSemiBold.copyWith(
                           fontSize: maxWidthLess310 ? 26 : 32,
                         ),

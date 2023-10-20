@@ -1,4 +1,4 @@
-import '../models/user_model.dart';
+import '../../models/user_model.dart';
 
 abstract interface class AuthRepository {
   Future<UserModel> signup(
