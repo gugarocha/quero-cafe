@@ -1,8 +1,8 @@
 import 'package:mobx/mobx.dart';
 
-import '../core/exceptions/repository_exception.dart';
-import '../models/user_model.dart';
-import '../repositories/auth/auth_repository.dart';
+import '../../core/exceptions/repository_exception.dart';
+import '../../models/user_model.dart';
+import '../../repositories/auth/auth_repository.dart';
 
 part 'user_store.g.dart';
 
@@ -28,6 +28,8 @@ abstract class UserStoreBase with Store {
   String? _errorMessage;
 
   UserStoreBase(this._authRepository);
+
+  bool get isAuthenticated => _user != null;
 
   @action
   Future<void> logout() async {

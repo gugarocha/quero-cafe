@@ -22,6 +22,7 @@ class AppModule extends Module {
     r.module('/signup', module: SignupModule());
     r.child(
       '/shop',
+      transition: TransitionType.noTransition,
       child: (_) => const BaseLayout(
         body: RouterOutlet(),
       ),

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../core/ui/constants.dart';
+import '../../core/ui/helpers/formatter_extensions.dart';
 import '../../core/ui/helpers/size_extensions.dart';
+import '../../store/cart/cart_store.dart';
 import 'widgets/list_header_text.dart';
 import 'widgets/order_item.dart';
 
@@ -12,9 +15,10 @@ class OrderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = context.screenWidth;
-
     final isWidthLess400 = screenWidth < 400;
     final isWidthLess700 = screenWidth < 700;
+
+    final cartStore = Modular.get<CartStore>();
 
     return Column(
       children: [
@@ -62,10 +66,17 @@ class OrderPage extends StatelessWidget {
             ),
             child: CustomScrollView(
               slivers: [
-                SliverList.separated(
-                  itemCount: 8,
-                  separatorBuilder: (_, __) => const Divider(),
-                  itemBuilder: (_, __) => const OrderItem(),
+                Observer(
+                  builder: (context) {
+                    return SliverList.separated(
+                      itemCount: cartStore.cart.length,
+                      separatorBuilder: (_, __) => const Divider(),
+                      itemBuilder: (context, index) {
+                        final cartItem = cartStore.cart[index];
+                        return OrderItem(cartItem);
+                      },
+                    );
+                  },
                 ),
                 const SliverToBoxAdapter(
                   child: SizedBox(
@@ -74,53 +85,67 @@ class OrderPage extends StatelessWidget {
                 ),
                 SliverFillRemaining(
                   hasScrollBody: false,
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                  child: Observer(
+                    builder: (context) {
+                      return Column(
                         children: [
-                          Text(
-                            'Total: ',
-                            style: FontsConstants.textRegular.copyWith(
-                              fontSize: isWidthLess400 ? 16 : 24,
+                          Visibility(
+                            visible: cartStore.cart.isNotEmpty,
+                            replacement: Text(
+                              'Coloque no mínimo um item no carrinho para realizar seu pedido',
+                              textAlign: TextAlign.center,
+                              style: FontsConstants.textRegular.copyWith(
+                                fontSize: isWidthLess400 ? 16 : 24,
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  'Total: ',
+                                  style: FontsConstants.textRegular.copyWith(
+                                    fontSize: isWidthLess400 ? 16 : 24,
+                                  ),
+                                ),
+                                Text(
+                                  cartStore.getCartTotal.currencyPTBR,
+                                  style: FontsConstants.textSemiBold.copyWith(
+                                    fontSize: isWidthLess400 ? 24 : 32,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Text(
-                            'R\$ 60,00',
-                            style: FontsConstants.textSemiBold.copyWith(
-                              fontSize: isWidthLess400 ? 24 : 32,
+                          const Spacer(),
+                          Expanded(
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      isWidthLess700 ? 10 : 20,
+                                    ),
+                                  ),
+                                  minimumSize:
+                                      Size.fromHeight(isWidthLess700 ? 50 : 70),
+                                ),
+                                onPressed: cartStore.cart.isNotEmpty
+                                    ? () => Modular.to.navigate('/shop/payment')
+                                    : null,
+                                child: Text(
+                                  'Prosseguir para o pagamento',
+                                  textAlign: TextAlign.center,
+                                  style: FontsConstants.textMedium.copyWith(
+                                    fontSize: isWidthLess700 ? 18 : 32,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ],
-                      ),
-                      const Spacer(),
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                  isWidthLess700 ? 10 : 20,
-                                ),
-                              ),
-                              minimumSize:
-                                  Size.fromHeight(isWidthLess700 ? 50 : 70),
-                            ),
-                            onPressed: () {
-                              Modular.to.navigate('/shop/payment');
-                            },
-                            child: Text(
-                              'Prosseguir para o pagamento',
-                              textAlign: TextAlign.center,
-                              style: FontsConstants.textMedium.copyWith(
-                                fontSize: isWidthLess700 ? 18 : 32,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
                 ),
               ],

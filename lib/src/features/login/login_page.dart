@@ -9,7 +9,7 @@ import '../../core/ui/helpers/messages.dart';
 import '../../core/ui/helpers/size_extensions.dart';
 import '../../core/ui/widgets/auth_form_container.dart';
 import '../../core/ui/widgets/password_form_field.dart';
-import '../../store/user_store.dart';
+import '../../store/user/user_store.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

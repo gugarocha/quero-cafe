@@ -24,7 +24,7 @@ class ProductsRepositoryImpl implements ProductsRepository {
               await collection.where('category', isEqualTo: category).get();
 
       final products = snapshot.docs
-          .map((doc) => ProductModel.fromJson(doc.data()))
+          .map((doc) => ProductModel.fromJson(doc.id, doc.data()))
           .toList();
 
 

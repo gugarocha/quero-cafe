@@ -1,4 +1,5 @@
 class ProductModel {
+  final String id;
   final String name;
   final String description;
   final double price;
@@ -6,6 +7,7 @@ class ProductModel {
   final String category;
 
   ProductModel({
+    required this.id,
     required this.name,
     required this.description,
     required this.price,
@@ -13,7 +15,7 @@ class ProductModel {
     required this.category,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) {
+  factory ProductModel.fromJson(String id, Map<String, dynamic> json) {
     switch (json) {
       case ({
           'name': final String name,
@@ -23,6 +25,7 @@ class ProductModel {
           'category': final String category,
         }):
         return ProductModel(
+          id: id,
           name: name,
           description: description,
           price: price,

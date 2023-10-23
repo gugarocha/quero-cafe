@@ -3,7 +3,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../core/ui/constants.dart';
 import '../../core/ui/helpers/size_extensions.dart';
-import '../../store/user_store.dart';
+import '../../core/ui/widgets/login_required_dialog.dart';
+import '../../store/user/user_store.dart';
 
 class BaseHeader extends StatelessWidget {
   const BaseHeader({super.key});
@@ -17,7 +18,7 @@ class BaseHeader extends StatelessWidget {
     final isWidthLess550 = screenWidth < 550;
 
     final userStore = Modular.get<UserStore>();
-    final user = userStore.user;
+    final UserStore(:user, :isAuthenticated) = userStore;
 
     return Container(
       width: screenWidth,
@@ -36,7 +37,7 @@ class BaseHeader extends StatelessWidget {
             ),
           ),
           Visibility(
-            visible: user != null,
+            visible: isAuthenticated,
             child: Align(
               alignment: Alignment.centerRight,
               child: Text(
@@ -72,7 +73,17 @@ class BaseHeader extends StatelessWidget {
                 ),
                 TextButton.icon(
                   onPressed: () {
-                    Modular.to.navigate('/shop/order');
+                    if (isAuthenticated) {
+                      Modular.to.navigate('/shop/order');
+                      return;
+                    }
+
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const LoginRequiredDialog();
+                      },
+                    );
                   },
                   icon: Icon(
                     Icons.shopping_cart_outlined,
@@ -93,7 +104,7 @@ class BaseHeader extends StatelessWidget {
                 TextButton.icon(
                   onPressed: () async {
                     await userStore.logout();
-                    Modular.to.navigate(user == null ? '/login' : '/');
+                    Modular.to.navigate(isAuthenticated ? '/' : '/login');
                   },
                   icon: Icon(
                     user == null ? Icons.login : Icons.logout,
@@ -101,7 +112,7 @@ class BaseHeader extends StatelessWidget {
                     size: isWidthLess420 ? 12 : 18,
                   ),
                   label: Text(
-                    user == null ? 'Entrar' : 'Sair',
+                    isAuthenticated ? 'Sair' : 'Entrar',
                     style: FontsConstants.textRegular.copyWith(
                       color: ColorsConstants.secondary,
                       fontSize: isWidthLess420 ? 12 : 18,

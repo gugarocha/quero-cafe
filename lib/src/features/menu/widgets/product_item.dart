@@ -1,16 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../core/ui/constants.dart';
 import '../../../core/ui/helpers/formatter_extensions.dart';
 import '../../../core/ui/widgets/set_amount_button.dart';
 import '../../../models/product_model.dart';
+import '../../../store/cart/cart_store.dart';
+import '../../../store/user/user_store.dart';
+import '../../../core/ui/widgets/login_required_dialog.dart';
 
-class ProductItem extends StatelessWidget {
+class ProductItem extends StatefulWidget {
   final ProductModel product;
   const ProductItem(this.product, {super.key});
 
   @override
+  State<ProductItem> createState() => _ProductItemState();
+}
+
+class _ProductItemState extends State<ProductItem> {
+  int amount = 1;
+
+  @override
   Widget build(BuildContext context) {
+    final UserStore(:isAuthenticated) = Modular.get<UserStore>();
+    final cartStore = Modular.get<CartStore>();
+
+    void onIncrement() {
+      setState(() => amount++);
+    }
+
+    void onDecrement() {
+      if (amount > 1) {
+        setState(() => amount--);
+      }
+    }
+
+    void onAddToCartPressed() {
+      if (!isAuthenticated) {
+        showDialog(
+          context: context,
+          builder: (context) => const LoginRequiredDialog(),
+        );
+        return;
+      }
+      cartStore.alredyInCart(widget.product)
+          ? cartStore.updateCartItemAmount(widget.product, amount)
+          : cartStore.addToCart(widget.product, amount);
+
+      setState(() => amount = 1);
+    }
+
     return LayoutBuilder(
       builder: (context, constraints) {
         final maxWidthLess310 = constraints.maxWidth < 310;
@@ -22,7 +61,7 @@ class ProductItem extends StatelessWidget {
                 top: Radius.circular(10),
               ),
               child: Image.network(
-                product.imageUrl,
+                widget.product.imageUrl,
                 width: 420,
                 height: constraints.maxWidth * 0.66,
                 fit: BoxFit.fill,
@@ -52,7 +91,7 @@ class ProductItem extends StatelessWidget {
                   children: [
                     FittedBox(
                       child: Text(
-                        product.name,
+                        widget.product.name,
                         style: FontsConstants.textSemiBold.copyWith(
                           fontSize: maxWidthLess310 ? 20 : 24,
                         ),
@@ -64,7 +103,7 @@ class ProductItem extends StatelessWidget {
                     Expanded(
                       child: SingleChildScrollView(
                         child: Text(
-                          product.description,
+                          widget.product.description,
                           style:
                               FontsConstants.textLight.copyWith(fontSize: 16),
                           overflow: TextOverflow.clip,
@@ -77,7 +116,7 @@ class ProductItem extends StatelessWidget {
                         vertical: maxWidthLess310 ? 2 : 5,
                       ),
                       child: Text(
-                        product.price.currencyPTBR,
+                        widget.product.price.currencyPTBR,
                         style: FontsConstants.textSemiBold.copyWith(
                           fontSize: maxWidthLess310 ? 26 : 32,
                         ),
@@ -86,8 +125,13 @@ class ProductItem extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Flexible(
-                          child: SetAmountButton(),
+                        Flexible(
+                          child: SetAmountButton(
+                            amount: amount,
+                            incrementButton: onIncrement,
+                            decrementButton: onDecrement,
+                            isCompact: maxWidthLess310,
+                          ),
                         ),
                         Flexible(
                           child: ElevatedButton.icon(
@@ -104,7 +148,7 @@ class ProductItem extends StatelessWidget {
                                 fontSize: 16,
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: onAddToCartPressed,
                             icon: const Icon(
                               Icons.add_shopping_cart_sharp,
                               size: 20,
