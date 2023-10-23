@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../auth_guard.dart';
 import '../core_module.dart';
 import '../../repositories/auth/auth_repository.dart';
 import '../../repositories/auth/auth_repository_impl.dart';
@@ -18,6 +19,10 @@ class PaymentModule extends Module {
 
   @override
   void routes(RouteManager r) {
-    r.child('/', child: (_) => const PaymentPage());
+    r.child(
+      '/',
+      child: (_) => const PaymentPage(),
+      guards: [AuthGuard()],
+    );
   }
 }
