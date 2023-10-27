@@ -33,7 +33,7 @@ class PaymentPage extends StatelessWidget {
               children: [
                 TextButton(
                   onPressed: () {
-                    Modular.to.navigate('/order');
+                    Modular.to.navigate('/shop/order');
                   },
                   child: Text(
                     'Voltar para pedido',
