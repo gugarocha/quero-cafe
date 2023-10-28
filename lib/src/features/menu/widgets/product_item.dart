@@ -60,8 +60,9 @@ class _ProductItemState extends State<ProductItem> {
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(10),
               ),
-              child: Image.network(
-                widget.product.imageUrl,
+              child: FadeInImage.assetNetwork(
+                image: widget.product.imageUrl,
+                placeholder: ImagesConstants.productLoading,
                 width: 420,
                 height: constraints.maxWidth * 0.66,
                 fit: BoxFit.fill,

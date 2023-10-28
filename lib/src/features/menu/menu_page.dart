@@ -28,8 +28,7 @@ class _MenuPageState extends State<MenuPage>
     'Todos',
     'Cafés',
     'Chás',
-    'Bebidas',
-    'Café da Manhá',
+    'Café da Manhã',
     'Salgados',
     'Doces',
   ];

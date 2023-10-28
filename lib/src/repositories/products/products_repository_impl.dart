@@ -27,7 +27,6 @@ class ProductsRepositoryImpl implements ProductsRepository {
           .map((doc) => ProductModel.fromJson(doc.id, doc.data()))
           .toList();
 
-
       return products;
     } catch (e, s) {
       log('Erro ao buscar produtos', error: e, stackTrace: s);

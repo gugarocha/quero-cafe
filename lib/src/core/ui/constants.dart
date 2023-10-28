@@ -10,6 +10,7 @@ sealed class ImagesConstants {
   static const logo = 'assets/images/logo.png';
   static const homeImage = 'assets/images/home_image.png';
   static const backgroundImage = 'assets/images/background.png';
+  static const productLoading = 'assets/images/product_loading.gif';
 }
 
 sealed class FontsConstants {
