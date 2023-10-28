@@ -81,25 +81,33 @@ class _MenuPageState extends State<MenuPage>
           }),
           tabs: categories.map((value) => Tab(text: value)).toList(),
         ),
-        const Text(
-          'Cardápio',
-          style: FontsConstants.textTitle,
-        ),
         Expanded(
-          child: Observer(
-            builder: (_) {
-              return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 400,
-                  mainAxisSpacing: 20,
-                  crossAxisSpacing: 20,
-                  childAspectRatio: 3 / 4,
+          child: CustomScrollView(
+            slivers: [
+              const SliverToBoxAdapter(
+                child: Text(
+                  'Cardápio',
+                  textAlign: TextAlign.center,
+                  style: FontsConstants.textTitle,
                 ),
-                itemCount: controller.products.length,
-                itemBuilder: (context, index) =>
-                    ProductItem(controller.products[index]),
-              );
-            },
+              ),
+              Observer(
+                builder: (_) {
+                  return SliverGrid.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 400,
+                      mainAxisSpacing: 20,
+                      crossAxisSpacing: 20,
+                      childAspectRatio: 3 / 4,
+                    ),
+                    itemCount: controller.products.length,
+                    itemBuilder: (context, index) =>
+                        ProductItem(controller.products[index]),
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ],
