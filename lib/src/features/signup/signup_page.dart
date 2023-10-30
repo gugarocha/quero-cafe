@@ -104,6 +104,7 @@ class _SignupPageState extends State<SignupPage> with Messages, Loader {
           Form(
             key: formKey,
             child: AuthFormContainer(
+              onBackButtonPressed: () => Modular.to.navigate('/login'),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

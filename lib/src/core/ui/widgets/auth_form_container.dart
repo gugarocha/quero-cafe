@@ -4,10 +4,12 @@ import '../constants.dart';
 import '../helpers/size_extensions.dart';
 
 class AuthFormContainer extends StatelessWidget {
+  final VoidCallback onBackButtonPressed;
   final Widget child;
 
   const AuthFormContainer({
     super.key,
+    required this.onBackButtonPressed,
     required this.child,
   });
 
@@ -43,9 +45,17 @@ class AuthFormContainer extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(35),
-                child: child,
+              Stack(
+                children: [
+                  IconButton(
+                    onPressed: onBackButtonPressed,
+                    icon: const Icon(Icons.arrow_back),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(35),
+                    child: child,
+                  ),
+                ],
               ),
             ],
           ),

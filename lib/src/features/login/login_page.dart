@@ -78,6 +78,7 @@ class _LoginPageState extends State<LoginPage> with Loader, Messages {
           Form(
             key: formKey,
             child: AuthFormContainer(
+              onBackButtonPressed: () => Modular.to.navigate('/'),
               child: Column(
                 children: [
                   Column(
