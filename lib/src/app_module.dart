@@ -8,6 +8,7 @@ import 'features/order/order_module.dart';
 import 'features/payment/payment_module.dart';
 import 'features/signup/signup_module.dart';
 import 'features/template/base_layout.dart';
+import 'features/user/user_module.dart';
 
 class AppModule extends Module {
   @override
@@ -30,6 +31,16 @@ class AppModule extends Module {
         ModuleRoute('/menu', module: MenuModule()),
         ModuleRoute('/order', module: OrderModule()),
         ModuleRoute('/payment', module: PaymentModule()),
+      ],
+    );
+    r.child(
+      '/user',
+      transition: TransitionType.noTransition,
+      child: (_) => const BaseLayout(
+        body: RouterOutlet(),
+      ),
+      children: [
+        ModuleRoute('/', module: UserModule()),
       ],
     );
   }

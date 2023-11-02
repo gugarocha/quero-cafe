@@ -40,11 +40,16 @@ class BaseHeader extends StatelessWidget {
             visible: isAuthenticated,
             child: Align(
               alignment: Alignment.centerRight,
-              child: Text(
-                'Olá, ${user?.name}',
-                style: FontsConstants.textMedium.copyWith(
-                  color: ColorsConstants.secondary,
-                  fontSize: isWidthLess420 ? 12 : 18,
+              child: TextButton(
+                onPressed: () {
+                  Modular.to.navigate('/user/edit');
+                },
+                child: Text(
+                  'Olá, ${user?.name}',
+                  style: FontsConstants.textMedium.copyWith(
+                    color: ColorsConstants.secondary,
+                    fontSize: isWidthLess420 ? 12 : 18,
+                  ),
                 ),
               ),
             ),
