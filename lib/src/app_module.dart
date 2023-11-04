@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
+import 'features/auth_guard.dart';
 import 'features/core_module.dart';
 import 'features/home/home_page.dart';
 import 'features/login/login_module.dart';
@@ -41,6 +42,9 @@ class AppModule extends Module {
       ),
       children: [
         ModuleRoute('/', module: UserModule()),
+      ],
+      guards: [
+        AuthGuard(),
       ],
     );
   }

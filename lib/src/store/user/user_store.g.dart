@@ -96,6 +96,20 @@ mixin _$UserStore on UserStoreBase, Store {
         password: password));
   }
 
+  late final _$UserStoreBaseActionController =
+      ActionController(name: 'UserStoreBase', context: context);
+
+  @override
+  void updateUser(({String address, String name, String phone}) userData) {
+    final _$actionInfo = _$UserStoreBaseActionController.startAction(
+        name: 'UserStoreBase.updateUser');
+    try {
+      return super.updateUser(userData);
+    } finally {
+      _$UserStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

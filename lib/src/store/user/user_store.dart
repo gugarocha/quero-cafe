@@ -74,4 +74,17 @@ abstract class UserStoreBase with Store {
       _status = AuthStateStatus.error;
     }
   }
+
+  @action
+  void updateUser(
+    ({
+      String name,
+      String address,
+      String phone,
+    }) userData,
+  ) {
+    _user?.name = userData.name;
+    _user?.address = userData.address;
+    _user?.phone = userData.phone;
+  }
 }
