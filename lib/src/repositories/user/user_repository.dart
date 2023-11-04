@@ -8,5 +8,5 @@ abstract interface class UserRepository {
     }) userData,
   );
 
-  Future<void> changePassword(String newPassword);
+  Future<void> changePassword(String oldPassword, String newPassword);
 }
