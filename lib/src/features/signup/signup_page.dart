@@ -192,9 +192,8 @@ class _SignupPageState extends State<SignupPage> with Messages, Loader {
                   const SizedBox(
                     height: 10,
                   ),
-                  PasswordFormField(
+                  PasswordFormField.confirm(
                     controller: confirmPasswordEC,
-                    labelText: 'confirmar senha',
                     validator: Validatorless.multiple([
                       Validatorless.required('Campo Obrigatório'),
                       Validatorless.compare(

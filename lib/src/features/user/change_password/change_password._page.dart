@@ -109,7 +109,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage>
             const SizedBox(
               height: 10,
             ),
-            PasswordFormField(
+            PasswordFormField.confirm(
               controller: confirmNewPasswordEC,
               labelText: 'confirmar nova senha',
               validator: Validatorless.multiple([
